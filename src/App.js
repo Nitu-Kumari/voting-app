@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-
 import logo from './logo.svg';
 import './App.css';
+import Axios from 'axios';
+
 
 class App extends Component {
 
@@ -57,6 +58,29 @@ renderList(){
  })
  return out
 }
+
+state = {
+  voting: []
+}
+
+componentDidMount() {
+  this.getAllVoting();
+}
+getAllVoting = () => {
+  // store the api url in a variable
+  let url = 'http://localhost:8080/voting';
+
+  Axios.get(url)
+    .then(res => {
+      console.log(res)
+      this.setState({
+        voting: res.data
+      })
+    })
+}
+
+
+
   render() {
     return (
       <div className="container">
@@ -85,7 +109,7 @@ renderList(){
      value={this.state.age} name="age" className="form-control" id="text" />
   </div>
 
-   <button type="submit" className="btn btn-primary">Submit</button>
+   <button type="submit" className="btn bitn-primary">Submit</button>
 </form>
       </div>
     );
